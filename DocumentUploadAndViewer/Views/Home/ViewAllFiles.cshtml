@@ -1,0 +1,51 @@
+﻿@model IEnumerable<DocumentUploadAndViewer.Models.UploadModel>
+
+@{
+    ViewBag.Title = "ViewAllFiles";
+}
+
+<h2>ViewAllFiles</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AccessionID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FileName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UploadDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Version)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Reason)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.AccessionID)
+        </td>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.FileName)
+            <a href="@Url.Action("ViewFile", "Home", new { filePath = item.FilePath })" target="_blank" class="btn btn-primary">View</a>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UploadDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Version)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Reason)
+        </td>
+    </tr>
+}
+
+</table>

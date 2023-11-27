@@ -1,0 +1,51 @@
+﻿@model IEnumerable<DocumentUploadAndViewer.Models.UploadModel>
+
+@{
+    ViewBag.Title = "ViewFiles";
+}
+
+<h2>ViewFiles</h2>
+<button onclick="goBack()">Go Back</button>
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
+
+@Html.ActionLink("View All Files", "ViewAllFiles", new { id = ViewBag.accessionid })
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AccessionID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FileName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UploadDate)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccessionID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FileName).@Html.DisplayFor(modelItem => item.FileType)
+                <a href="@Url.Action("ViewFile", "Home", new { filePath = item.FilePath })" target="_blank" class="btn btn-primary">View</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UploadDate)
+            </td>
+
+        </tr>
+    }
+
+</table>
+

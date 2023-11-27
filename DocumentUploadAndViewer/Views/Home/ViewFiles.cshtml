@@ -1,0 +1,58 @@
+﻿@model IEnumerable<DocumentUploadAndViewer.Models.UploadModel>
+
+@{
+    ViewBag.Title = "ViewFiles";
+}
+
+<h2>ViewFiles</h2>
+<input type="text" id="fileIdInput" placeholder="Search by ID" onkeydown="handleKeyDown()" />
+
+<script>
+  function handleKeyDown() {
+    var event = window.event || arguments.callee.caller.arguments[0];
+    if (event.keyCode === 13) {
+      var fileId = document.getElementById("fileIdInput").value;
+      if (fileId.trim() === '') {
+        window.location.href = '@Url.Action("ViewFiles", "Home")';
+      } else {
+        var url = '@Url.Action("ViewFilesById", "Home")' + '/' + encodeURIComponent(fileId);
+        window.location.href = url;
+      }
+    }
+  }
+</script>
+
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AccessionID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FileName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UploadDate)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccessionID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FileName).@Html.DisplayFor(modelItem => item.FileType)
+                <a href="@Url.Action("ViewFile", "Home", new { filePath = item.FilePath })" target="_blank" class="btn btn-primary">View</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UploadDate)
+            </td>
+
+        </tr>
+    }
+
+</table>
